@@ -1,0 +1,59 @@
+RADAR DE PRAZOS E AUTOS
+Presente da palestra "Do Prompt à Petição" · WS Advogados Associados
+=====================================================================
+
+O QUE É
+Uma skill (habilidade) para o Claude que junta duas tarefas:
+  1. Varrer o DJEN (Diário de Justiça Eletrônico Nacional, do CNJ) pela sua OAB
+     e contar o prazo fatal de cada intimação, com feriados e suspensões.
+  2. Ler autos, sentenças e acórdãos longos em PDF e devolver linha do tempo,
+     mapa de provas, quadro de teses e estado do processo, citando a folha ou o ID.
+
+O QUE TEM NESTE ARQUIVO
+  radar-prazos-autos\          a pasta da skill (para o Claude Code)
+  radar-prazos-autos.zip       a mesma skill em .zip (para enviar no claude.ai)
+  LEIA-ME.txt                  este guia
+
+COMO INSTALAR
+
+  Opção A · Claude no navegador ou no aplicativo (claude.ai)
+    1. Abra Configurações > Capacidades (Capabilities) > Skills.
+    2. Envie o arquivo radar-prazos-autos.zip.
+    3. Ative a skill e peça: "Tem intimação nova para a OAB 12345/PB?"
+    A execução de código precisa estar ligada. Se a consulta ao DJEN falhar,
+    é porque o servidor está fora do Brasil (veja o item LIMITES); a contagem
+    de prazo e a leitura de PDF continuam funcionando.
+
+  Opção B · Claude Code no seu computador (recomendado para o DJEN)
+    1. Copie a pasta radar-prazos-autos para:
+         Windows: C:\Users\SEU-USUARIO\.claude\skills\
+         Mac/Linux: ~/.claude/skills/
+    2. Tenha o Python 3 instalado (python.org).
+    3. Abra o Claude Code e peça: "Quais são as minhas publicações da semana? OAB 12345/PB."
+
+  Teste rápido sem IA (no terminal, dentro da pasta da skill):
+    python scripts/prazo_calc.py --disponibilizacao 2026-11-06 --dias 15 --tribunal nacional
+    python scripts/jus_livre.py djen --oab 12345 --uf PB --dias 7
+
+CALENDÁRIOS DE FERIADOS
+  scripts/feriados.txt        nacional
+  scripts/feriados-tjpb.txt   TJPB
+  scripts/feriados-trf5.txt   TRF5
+  Trazem 2026 completo e só os feriados nacionais de 2027. Acrescente os feriados
+  do seu tribunal e da sua comarca, um por linha: 2027-06-24  # São João
+
+LIMITES (LEIA ANTES DE CONFIAR)
+  - A IA calcula e organiza; quem decide, confere e assina é o advogado.
+  - Confira todo prazo no PJe ou no sistema do tribunal antes de protocolar.
+  - O DJEN só responde a conexões do Brasil. "Nada encontrado" não prova que
+    não há intimação.
+  - Não coloque autos de clientes em ferramenta sem contrato e sem treinamento
+    desativado. Prefira conta paga e dados pseudonimizados.
+  - Material educativo, sem garantia. Não é consultoria jurídica.
+
+CRÉDITOS E LICENÇAS
+  Montado a partir de skills abertas sob licença MIT: "djen", de Ricardo Sanches;
+  "prazo-sentinel" e "resumo-autos", de Nei Maciel. Licenças completas na pasta
+  radar-prazos-autos\licencas.
+
+Wendley Steffan Ferreira dos Santos · OAB/PB 27.884 · @WendleySteffan
